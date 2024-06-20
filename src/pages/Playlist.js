@@ -16,8 +16,10 @@ export default function Playlist() {
             <TouchableOpacity onPress={() => setModalVisible(true)}>
                 <Text style={styles.PlayListBtn}>+ Adicionar nova Playlist</Text>
             </TouchableOpacity>
+
             <PlaylistModal visible={modalVisible}
-            onClose={() => setModalVisible(false)}/>
+                onClose={() => setModalVisible(false)}
+                onSubmit={(playlistName => console.log(playlistName))} />
         </ScrollView>
     );
 }

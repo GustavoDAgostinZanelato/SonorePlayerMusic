@@ -1,22 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Modal, Dimensions, TextInput, TouchableWithoutFeedback, Text } from "react-native";
 import { Entypo } from '@expo/vector-icons';
 
-export default function PlaylistModal({ visible, onClose }) {
+export default function PlaylistModal({ visible, onClose, onSubmit }) {
     if (!visible) return null; // Renderiza null se o modal não estiver visível
 
+    const [playlistName, setPlaylistName] = useState("")
+
+    const handleOnSubmit = () => {
+        if (!playlistName.trim()) {
+            onClose()
+        } else {
+            onSubmit(playlistName)
+            onClose()
+        }
+    }
     return (
         <Modal visible={visible} animationType="slide" transparent>
             <TouchableWithoutFeedback onPress={onClose}>
                 <View style={Styles.modalBg}></View>
             </TouchableWithoutFeedback>
+
             <View style={Styles.modalContainer}>
                 <View style={Styles.modalContent}>
                     <Text style={Styles.text}>Criar Nova Playlist</Text>
+
                     <View style={Styles.inputContainer}>
-                        <TextInput style={Styles.input} />
+                        <TextInput value={playlistName} onChangeText={(text) => setPlaylistName(text)}
+                            style={Styles.input} />
+
                         <View style={Styles.submitContainer}>
-                            <Entypo name="check" size={30} color="green" />
+                            <Entypo name="check" size={30} color="green" onPress={handleOnSubmit} />
                         </View>
                     </View>
                 </View>
