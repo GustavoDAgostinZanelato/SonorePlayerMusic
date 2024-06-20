@@ -12,6 +12,7 @@ export default function PlaylistModal({ visible, onClose, onSubmit }) {
             onClose()
         } else {
             onSubmit(playlistName)
+            setPlaylistName("")
             onClose()
         }
     }
